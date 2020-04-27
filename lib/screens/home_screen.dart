@@ -5,6 +5,7 @@ import 'package:paani/Screens/drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_star_rating/flutter_star_rating.dart';
+import 'package:paani/screens/customerorderplacement.dart';
 
 //import './Screens/drawer.dart';
 class HomeScreen extends StatefulWidget {
@@ -119,7 +120,13 @@ class HomeScreenState extends State<HomeScreen> {
                                   height: 10,
                                 ),
                                 new RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Place_Order_Screen()));
+                                  },
                                   child: new Text('Order'),
                                   textColor: Colors.white,
                                   color: Colors.teal,
