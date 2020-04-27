@@ -7,30 +7,36 @@ class IndexScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Paani.'),
+        title: Center(
+          child: Text(
+            'Paani',
+            style: TextStyle(
+              fontSize: 35.0,
+            ),
+          ),
+        ),
       ),
-      body: Column(children: <Widget>[
-        RaisedButton(
-          child: Text('Log in'),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                LoginScreen()
-              )
-            );
-          },
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Log in'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
+              },
+            ),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SignupAsScreen()));
+                },
+                child: Text('Sign up')),
+          ],
         ),
-        RaisedButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                SignupAsScreen()
-              )
-            );
-          },
-          child: Text('Sign up')
-        ),
-      ],),
+      ),
     );
   }
 }
