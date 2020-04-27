@@ -114,6 +114,7 @@ class _Place_Order_ScreenState extends State<Place_Order_Screen> {
             child: Card(
               color: Colors.teal,
               child: FlatButton(
+                onPressed: null,
                 child: ListTile(
                   title: Center(
                     child: Text(
