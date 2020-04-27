@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:paani/screens/login.dart';
 import 'package:http/http.dart' as http;
 
 class CustomerSignupScreen extends StatefulWidget {
@@ -383,20 +384,67 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           ]),
     );
 
-    Widget _getPage() {
-      if (_currentStep == 1) return emailPage;
-      if (_currentStep == 2) return passwordPage;
-      if (_currentStep == 3)
-        return detailsPage;
-      else
-        return Container(
-          child: Center(
-            child: Text(
-              'Your account has been created!',
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+    Widget account_created = Padding(
+      padding: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 0),
+      child: Wrap(
+        children: <Widget>[
+          Center(
+            child: Icon(
+              Icons.beach_access,
+              size: 80.0,
             ),
           ),
-        );
+          SizedBox(
+            height: 105.0,
+          ),
+          Text(
+            'Your account has been created!',
+            style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 2.0),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 170.0,
+          ),
+          Center(
+            child: ButtonTheme(
+              padding: EdgeInsets.only(bottom: 1),
+              minWidth: 300,
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (_) => false);
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                color: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+
+    Widget _getPage() {
+      if (_currentStep == 1)
+        return emailPage;
+      else if (_currentStep == 2)
+        return passwordPage;
+      else if (_currentStep == 3)
+        return detailsPage;
+      else
+        return account_created;
     }
 
     return Scaffold(
