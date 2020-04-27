@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:paani/screens/home_customer.dart';
 
@@ -33,36 +34,46 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<bool> _logUserIn() async {
-    var result = await rootBundle.loadString('assets/database.json');
-    var credentials = json.decode(result);
-    if(credentials['email'] == _email && credentials['password'] == _password) {
+    var result = await http.post('http://10.0.2.2:7777/users/login',
+        body: {'email_address': _email, 'password': _password});
+    var credentials = json.decode(result.body);
+    print(credentials);
+    if (credentials['message'] == "OK") {
       return true;
+    } else {
+      return false;
     }
-    else return false; 
+    // credentials['message'].map((user) {
+    //    if (user['email_address'] == _email &&
+    //     credentials['password_password'] == _password) {
+    //       return true;
+    //     }
+    //     return false;
+    // });
+    // return false;
   }
 
   void _submit() async {
-     final form = formKey.currentState;
-    
+    final form = formKey.currentState;
+
     _loading = true;
 
-     if(form.validate()) {
+    if (form.validate()) {
       form.save();
 
-      if(await _logUserIn()) {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => CustomerHomeScreen()), (_) => false);
-      }
-      else {
+      if (await _logUserIn()) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => CustomerHomeScreen()),
+            (_) => false);
+      } else {
         _showSnackBar("Incorrect email address or password");
       }
-     }
-     _loading = false;
+    }
+    _loading = false;
   }
 
-
-
   Widget build(BuildContext context) {
-
     Widget paaniLogo = Padding(
       padding: EdgeInsets.only(top: 0.0),
       child: Container(
@@ -76,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-    
+
     Widget loginButton = ButtonTheme(
       padding: EdgeInsets.only(bottom: 1),
       minWidth: 300,
@@ -96,36 +107,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     Widget loginForm = Form(
-      key: formKey,
-      child: Column(children: <Widget>[
-        TextFormField(
-          validator: (text) => null,
-          onSaved: (text) => _email = text,
-          cursorColor: Theme.of(context).primaryColor,
-          decoration: InputDecoration(
-            labelText: 'Email address',
-            prefixIcon: Icon(Icons.email),
-          ),
-        ),
-        TextFormField(
-          validator: (text) => null,
-          onSaved: (text) => _password = text,
-          cursorColor: Theme.of(context).primaryColor,
-          obscureText: _obscurePassword,
-          decoration: InputDecoration(
-            labelText: 'Password',
-            prefixIcon: Icon(Icons.vpn_key),
-            suffixIcon: IconButton(icon: _obscurePassword ? Icon(Icons.visibility_off) : Icon(Icons.visibility), onPressed: () => {
-              setState(() {
-                _obscurePassword = !_obscurePassword;
-              })
-            })
-          ),
-        ),
-      ],)
-    );
+        key: formKey,
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+              validator: (text) => null,
+              onSaved: (text) => _email = text,
+              cursorColor: Theme.of(context).primaryColor,
+              decoration: InputDecoration(
+                labelText: 'Email address',
+                prefixIcon: Icon(Icons.email),
+              ),
+            ),
+            TextFormField(
+              validator: (text) => null,
+              onSaved: (text) => _password = text,
+              cursorColor: Theme.of(context).primaryColor,
+              obscureText: _obscurePassword,
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.vpn_key),
+                  suffixIcon: IconButton(
+                      icon: _obscurePassword
+                          ? Icon(Icons.visibility_off)
+                          : Icon(Icons.visibility),
+                      onPressed: () => {
+                            setState(() {
+                              _obscurePassword = !_obscurePassword;
+                            })
+                          })),
+            ),
+          ],
+        ));
 
-    return Scaffold (
+    return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
         title: Text('Paani - Log in'),
@@ -148,18 +163,21 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(children: <Widget>[
-            paaniLogo,
-            loginForm,
-            SizedBox(height: 20.0,),
-            Padding(
-              padding: EdgeInsets.only(bottom: 50.0),
-              child: loginButton,
-            ),
-          ],),
+          child: Column(
+            children: <Widget>[
+              paaniLogo,
+              loginForm,
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 50.0),
+                child: loginButton,
+              ),
+            ],
+          ),
         ),
       ),
-
     );
   }
 }
