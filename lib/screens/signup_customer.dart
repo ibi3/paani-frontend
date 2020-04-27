@@ -37,7 +37,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
 
   Future<bool> _verifyEmail() async {
     try {
-      var response = await http.get('http://localhost:7777/users/$_email');
+      var response = await http.get('http://10.0.2.2:7777/users/$_email');
       print(response.body);
       if (json.decode(response.body)["message"] == true) {
         return false;
