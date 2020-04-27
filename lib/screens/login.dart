@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:paani/screens/home_customer.dart';
+import 'package:paani/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -64,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (await _logUserIn()) {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => CustomerHomeScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
             (_) => false);
       } else {
         _showSnackBar("Incorrect email address or password");
@@ -111,7 +110,12 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: <Widget>[
             TextFormField(
-              validator: (text) => null,
+              validator: (text) {
+                if (text.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
               onSaved: (text) => _email = text,
               cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(
@@ -120,7 +124,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextFormField(
-              validator: (text) => null,
+              validator: (text) {
+                if (text.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
               onSaved: (text) => _password = text,
               cursorColor: Theme.of(context).primaryColor,
               obscureText: _obscurePassword,

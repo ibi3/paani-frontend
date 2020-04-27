@@ -63,10 +63,10 @@ class IndexScreen extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 130.0),
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/logo_whitebg.png',
-                      width: 230.0,
-                      height: 120.0,
+                    child: new Image.asset(
+                      'assets/logo_transparentbg.png',
+                      width: 400.0,
+                      height: 200.0,
                       fit: BoxFit.fill,
                     ))),
             customButton('Log In', 20.0, context),

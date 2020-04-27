@@ -69,6 +69,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1+1"
+  flutter_star_rating:
+    dependency: "direct main"
+    description:
+      name: flutter_star_rating
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -142,6 +156,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_star_rating:
+    dependency: "direct main"
+    description:
+      name: smooth_star_rating
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4+2"
   source_span:
     dependency: transitive
     description:
@@ -206,4 +227,4 @@ packages:
     source: hosted
     version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">=2.5.0 <3.0.0"
