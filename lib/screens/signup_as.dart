@@ -73,9 +73,9 @@ class SignupAsScreen extends StatelessWidget {
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.asset(
-                            'assets/logo_whitebg.png',
-                            width: 230.0,
-                            height: 120.0,
+                            'assets/logo_transparentbg.png',
+                            width: 400.0,
+                            height: 200.0,
                             fit: BoxFit.fill,
                           ))),
                   customButton('Customer', 20.0, context),
