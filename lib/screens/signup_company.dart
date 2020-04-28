@@ -38,7 +38,7 @@ class _CompanySignupScreenState extends State<CompanySignupScreen> {
 
   Future<bool> _verifyEmail() async {
     try {
-      var response = await http.get('http://10.0.2.2:7777/users/$_email');
+      var response = await http.get('http://192.168.10.10:7777/users/$_email');
       print(response.body);
       if (json.decode(response.body)["error"] == true) {
         return false;

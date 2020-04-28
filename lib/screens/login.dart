@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:get_ip/get_ip.dart';
 import 'package:paani/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -32,8 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
   }
 
+  // Future<void> get selfIP async {
+
+  //   print(ip);
+  // }
   Future<bool> _logUserIn() async {
-    var result = await http.post('http://10.0.2.2:7777/users/login',
+    var result = await http.post('http://192.168.10.10:7777/users/login',
         body: {'email_address': _email, 'password': _password});
     var credentials = json.decode(result.body);
     print(credentials);
@@ -42,14 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       return false;
     }
-    // credentials['message'].map((user) {
-    //    if (user['email_address'] == _email &&
-    //     credentials['password_password'] == _password) {
-    //       return true;
-    //     }
-    //     return false;
-    // });
-    // return false;
   }
 
   void _submit() async {
